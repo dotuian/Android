@@ -1,0 +1,33 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ian.messagecharge"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".SendMessageActivity"
+            android:label="@string/title_activity_send_message" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        
+        <activity android:name=".SettingActivity"></activity>
+        
+    </application>
+    
+    
+    <!-- 注册发送短信的权限,必须加，否则没有权限发短信 -->
+    <uses-permission android:name="android.permission.SEND_SMS" ></uses-permission>
+
+</manifest>

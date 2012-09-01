@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+	 <!-- 请输入手机号码标签 -->
+	 <TextView
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:text="@string/telNo" />
+	
+	 <!-- 手机号码编辑框 -->
+	 <EditText
+	     android:id="@+id/etTelNo"
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:hint=""
+	     android:inputType="phone" />
+
+    <!-- 请输入信息内容标签 -->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/content" />
+
+    <!-- 信息内容编辑框 -->
+    <EditText
+        android:id="@+id/etMessage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:inputType="text"
+        android:minLines="3" />
+
+    <!-- 按钮 -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <!-- 发送 -->
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtSend" />
+        <!-- 设置 -->
+        <Button
+            android:id="@+id/btnSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="50dp"
+            android:text="@string/txtSetting" />
+    </RelativeLayout>
+
+</LinearLayout>

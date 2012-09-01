@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MessageCharge</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_send_message">SendMessage</string>
+
+    <!--  短信发送界面 -->
+	<string name="telNo">手机号码：</string>
+	<string name="content">请输入信息内容：</string>
+	<string name="txtSend">发送</string>
+	<string name="txtSetting">设置</string>
+	
+	<!--  设置界面 -->
+	<string name="delay">发送间隔(s)：</string>
+	<string name="txtSave">保存</string>
+	<string name="txtClear">清空</string>
+	<string name="txtBack">返回</string>
+	
+</resources>
