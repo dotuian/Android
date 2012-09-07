@@ -29,16 +29,25 @@
         android:id="@+id/etMessage"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint=""
-        android:inputType="text"
-        android:minLines="3" />
+        android:scrollbars="vertical"
+        android:gravity="top"
+		android:inputType="textMultiLine" 
+		android:minLines="8"  
+		android:maxLines="8"
+        android:hint="" />
 
     <!-- 按钮 -->
-    <RelativeLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
+        <!-- 选择 -->
+        <Button
+            android:id="@+id/btnSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtSelect" />
         <!-- 发送 -->
         <Button
             android:id="@+id/btnSend"
@@ -50,10 +59,7 @@
             android:id="@+id/btnSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="50dp"
             android:text="@string/txtSetting" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
