@@ -4,118 +4,120 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 	
-    <!-- 保存内容 -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout 
+        android:id="@+id/setting_top"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dip"
-        android:orientation="vertical" >
-    
-        <!-- 短信中心号码 -->
-	    <LinearLayout
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        <TextView
-	            android:id="@+id/txCenterTelNo"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/centerTelNo" />
-	
-	        <EditText
-	            android:id="@+id/etCenterTelNo"
-	            android:inputType="number"
-	            android:hint=""
-	            android:layout_width="200dp"
-	            android:layout_height="50dp"/>
-	    </LinearLayout>
-    
-    	<!-- 信息前缀 -->
-	    <LinearLayout
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        <TextView
-	            android:id="@+id/tvPrefix"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/prefix" />
-	
-	        <EditText
-	            android:id="@+id/etPrefix"
-	            android:inputType="number"
-	            android:hint=""
-	            android:layout_width="200dp"
-	            android:layout_height="50dp"/>
-	    </LinearLayout>
-	    
-    	<!-- 发送间隔 -->
-	    <LinearLayout
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        <TextView
-	            android:id="@+id/delayText"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/delay" />
-	
-	        <EditText
-	            android:id="@+id/etDelay"
-	            android:inputType="number"
-	            android:hint=""
-	            android:layout_width="200dp"
-	            android:layout_height="50dp"/>
-	    </LinearLayout>
-
-	    
-    </LinearLayout>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-	
-    <!-- 按钮 -->
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-		<!-- 保存 -->
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txtSave" />
-		<!-- 清空 -->	
-        <Button
-            android:id="@+id/btnClear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/btnSave"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/btnSave"
-            android:text="@string/txtClear" />
-        
+	    android:layout_height="40dp"
+	    android:orientation="horizontal"
+	    android:background="@color/top_bg">
 		<!-- 返回 -->	
         <Button
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/btnClear"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/btnClear"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/button_bg"
             android:text="@string/txtBack" />
-        
+		<!-- 保存 -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_bg"
+            android:text="@string/txtSave" />
     </RelativeLayout>
 
+    <!--  -->
+	<RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
+        android:background="@color/body_bg"
+        android:orientation="vertical" >
+		<!-- 短信中心号码 -->
+        <EditText
+            android:id="@+id/etCenterTelNo"
+            android:inputType="phone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="17dp"
+            android:saveEnabled="true"
+            android:singleLine="true"
+            style="@style/setting_text"
+            android:hint="@string/tip_centerTelNo" />
+        <TextView
+            android:id="@+id/txCenterTelNo"
+            style="@style/setting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/etCenterTelNo"
+            android:layout_alignBottom="@+id/etCenterTelNo"
+            android:layout_alignLeft="@+id/etCenterTelNo"
+            android:paddingLeft="20dp"
+            android:paddingTop="16dp"
+            android:text="@string/centerTelNo" />
+        
+        <!-- 信息前缀 -->
+        <EditText
+            android:id="@+id/etPrefix"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="17dp"
+            android:saveEnabled="true"
+            android:singleLine="true"
+            style="@style/setting_text"
+            android:layout_below="@+id/etCenterTelNo"
+            android:hint="@string/tip_prefix" />
+        <TextView
+            android:id="@+id/tvPrefix"
+            style="@style/setting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/etPrefix"
+            android:layout_alignBottom="@+id/etPrefix"
+            android:layout_alignLeft="@+id/etPrefix"
+            android:paddingLeft="20dp"
+            android:paddingTop="16dp"
+            android:text="@string/prefix" />
+        
+		 <!-- 发送间隔 -->
+         <EditText
+            android:id="@+id/etDelay"
+            android:inputType="number"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingLeft="100dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="17dp"
+            android:saveEnabled="true"
+            android:singleLine="true"
+            style="@style/setting_text"
+            android:layout_below="@+id/etPrefix"
+            android:hint="@string/tip_delay" />
+        <TextView
+            android:id="@+id/delayText"
+            style="@style/setting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/etDelay"
+            android:layout_alignBottom="@+id/etDelay"
+            android:layout_alignLeft="@+id/etDelay"
+            android:paddingLeft="20dp"
+            android:paddingTop="16dp"
+            android:text="@string/delay" />
+    </RelativeLayout>
 
 </LinearLayout>
