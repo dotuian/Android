@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,10 +14,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class SettingActivity extends Activity {
-
+	
+	private static String TAG = "SettingActivity  #  ";
+	
 	/** Called when the activity is first created. */
 	private Button btnSave;
-	private Button btnClear;
 	private Button btnBack;
 	
 	private EditText etCenterTelNo;
@@ -36,9 +38,6 @@ public class SettingActivity extends Activity {
 		btnSave = (Button) this.findViewById(R.id.btnSave);
 		btnSave.setOnClickListener(saveListener);
 
-		// 清除配置按钮
-		btnClear = (Button) this.findViewById(R.id.btnClear);
-		btnClear.setOnClickListener(clearListener);
 
 		// 返回配置按钮
 		btnBack = (Button) this.findViewById(R.id.btnBack);
@@ -54,6 +53,8 @@ public class SettingActivity extends Activity {
 	
 	private OnClickListener saveListener = new View.OnClickListener() {
 		public void onClick(View v) {
+			
+			Log.i(TAG, "设置OnClickListener");
 			
 			// 短信中心号码
 			String centerTelNo = etCenterTelNo.getText().toString();
@@ -79,6 +80,9 @@ public class SettingActivity extends Activity {
 		}
 	};
 	
+	/**
+	 * 清空配置信息
+	 */
 	private OnClickListener clearListener = new View.OnClickListener() {
 		public void onClick(View v) {
 			
