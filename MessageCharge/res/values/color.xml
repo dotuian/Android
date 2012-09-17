@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="top_bg">#94DBFF</color>
-    <color name="bottom_bg">#94DBFF</color>
+    <color name="top_bg">#0099FF</color>
+    <color name="body_bg">#2FC8FF</color>
+    <color name="bottom_bg">#0099FF</color>
 </resources>

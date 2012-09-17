@@ -6,17 +6,27 @@
     <string name="title_activity_send_message">SendMessage</string>
 
     <!--  短信发送界面 -->
+    <string name="sendpage">短信发送界面</string>
+    
 	<string name="telNo">手机号码：</string>
 	<string name="content">请输入信息内容：</string>
 	<string name="txtSelect">选择</string>
 	<string name="txtSend">发送</string>
 	<string name="txtSetting">设置</string>
 	
-	<!--  设置界面 -->
-	<string name="centerTelNo">短信中心号码：</string>
-	<string name="prefix">信息前缀：</string>
-	<string name="delay">发送间隔(s)：</string>
+	<string name="tip_telNo">请输入发送号码</string>
+	<string name="tip_content">请输入发送内容</string>
+
 	
+	<!--  设置界面 -->
+	<string name="centerTelNo">中心号码：</string>
+	<string name="prefix">信息前缀：</string>
+	<string name="delay">发送间隔：</string>
+	
+	<string name="tip_centerTelNo">请输入短信中心号码</string>
+	<string name="tip_prefix">请输入信息前缀</string>
+	<string name="tip_delay">请输入发送间隔(S)</string>
+	    
 	<string name="txtSave">保存</string>
 	<string name="txtClear">清空</string>
 	<string name="txtBack">返回</string>
