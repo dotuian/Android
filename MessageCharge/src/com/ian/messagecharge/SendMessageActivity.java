@@ -249,9 +249,9 @@ public class SendMessageActivity extends Activity {
 					File file = new File(filename);
 					
 					etMessage.setText(FileUtil.readFileByLines(file));
-					
 					messageCount = FileUtil.countFileLines(file);
 					tvTitle.setText(getString(R.string.sendpage) +  "(" + messageCount + ")");
+					
 					//Toast.makeText(SendMessageActivity.this, "文件读取成功！",Toast.LENGTH_LONG).show();
 					break;
 					

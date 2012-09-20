@@ -76,8 +76,8 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="top"
-	        android:hint="@string/tip_content"
 	        android:inputType="textMultiLine"
+	        android:hint="@string/tip_content"
 	        android:maxLines="15"
 	        android:scrollbars="vertical" />
 

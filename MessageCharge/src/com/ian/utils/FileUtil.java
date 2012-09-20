@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class FileUtil {
 	
@@ -72,14 +73,18 @@ public class FileUtil {
 
 	
 	public static int countLines(String content) {
+		
+//		String[] array = content.split("\n");
+		
+		StringTokenizer tokenizer = new StringTokenizer(content, "\n");  
+	    return tokenizer.countTokens();  
 
-		String[] array = content.split("\n");
-
-		if (array != null) {
-			return array.length;
-		} else {
-			return 0;
-		}
+		
+//		if (array != null) {
+//			return array.length;
+//		} else {
+//			return 0;
+//		}
 	}
-
+	
 }
