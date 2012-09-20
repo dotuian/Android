@@ -24,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ian.utils.FileUtil;
+
 public class ExDialog extends ListActivity {
 	private List<Map<String, Object>> mData;
 	private String mDir = Environment.getExternalStorageDirectory().getPath();
@@ -55,7 +57,8 @@ public class ExDialog extends ListActivity {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> map = null;
 		File f = new File(mDir);
-		File[] files = f.listFiles();
+		//File[] files = f.listFiles();  // 默认的文件排序
+		File[] files = FileUtil.listSortedFiles(f, false); // 按文件名大小排序
 
 		//if (!mDir.equals("/sdcard")) {
 		if (!mDir.equals(Environment.getExternalStorageDirectory().getPath())) {
@@ -188,4 +191,5 @@ public class ExDialog extends ListActivity {
 		setResult(RESULT_OK, intent);
 		finish();
 	}
+	
 };

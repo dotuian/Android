@@ -1,10 +1,10 @@
 package com.ian.messagecharge;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -24,7 +24,11 @@ public class SettingActivity extends Activity {
 	private EditText etCenterTelNo;
 	private EditText etPrefix;
 	private EditText etDelay;
-
+	
+	// 保存前一页面的值，以便返回时保持前页面原来的状态
+	private String telNo = "";
+	private String message = "";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,17 +42,28 @@ public class SettingActivity extends Activity {
 		btnSave = (Button) this.findViewById(R.id.btnSave);
 		btnSave.setOnClickListener(saveListener);
 
-
 		// 返回配置按钮
 		btnBack = (Button) this.findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(jumpToSendMessageListener);
 		
 		// 读取配置文件的值
 		SharedPreferences share = SettingActivity.this.getSharedPreferences("perference", MODE_PRIVATE);
-		etCenterTelNo.setText(share.getString("centerTelNo", ""));
+		
+		String centerTelNo = share.getString("centerTelNo", "");
+		if (centerTelNo != null && !"".equals(centerTelNo)){
+			etCenterTelNo.setText(centerTelNo);
+		} else {
+			// 武汉中国移动短信中心号码
+			etCenterTelNo.setText("+8613800270500");
+		}
+		
 		etPrefix.setText(share.getString("prefix", ""));
 		etDelay.setText(share.getString("delay", ""));
-
+		
+		// 保存前一页面的值，以便返回时保持前页面原来的状态
+		Bundle bundle = this.getIntent().getExtras(); 
+		telNo = bundle.getString(SendMessageActivity.TEL_NUMBER);  
+		message = bundle.getString(SendMessageActivity.MESSAGE);
 	}
 	
 	private OnClickListener saveListener = new View.OnClickListener() {
@@ -81,35 +96,20 @@ public class SettingActivity extends Activity {
 	};
 	
 	/**
-	 * 清空配置信息
-	 */
-	private OnClickListener clearListener = new View.OnClickListener() {
-		public void onClick(View v) {
-			
-			etCenterTelNo.setText(null);
-			etPrefix.setText(null);
-			etDelay.setText(null);
-			
-			SharedPreferences share = SettingActivity.this.getSharedPreferences("perference", MODE_PRIVATE);
-
-			Editor editor = share.edit();
-			editor.putString("centerTelNo", "");
-			editor.putString("prefix", "");
-			editor.putString("delay", "");
-			editor.commit();
-			
-			Toast.makeText(SettingActivity.this, "清除成功",Toast.LENGTH_LONG).show();
-		}
-	};
-
-	/**
-	 * 跳转到设置画面
+	 * 跳转到短信发送页面
 	 */
 	private OnClickListener jumpToSendMessageListener = new View.OnClickListener() {
 		public void onClick(View v) {
+			// 将前一页面的返还到前一页面中去，保持前页的状态
+			Bundle bundle = new Bundle();
+			bundle.putString(SendMessageActivity.TEL_NUMBER, telNo);
+			bundle.putString(SendMessageActivity.MESSAGE, message);
+
 			Intent intent = new Intent();  
-			intent.setClass(SettingActivity.this, SendMessageActivity.class);
-			startActivity(intent);
+			intent.putExtras(bundle);
+			
+			setResult(RESULT_OK, intent);
+			finish();
 		}
 	};
 	

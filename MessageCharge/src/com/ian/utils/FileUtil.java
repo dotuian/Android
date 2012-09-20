@@ -4,9 +4,32 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class FileUtil {
+	
+	
+	public static File[] listSortedFiles(File dirFile, boolean isCaseSensitive) {  
+    	assert dirFile.isDirectory();  
+  
+        File[] files = dirFile.listFiles();  
+          
+        FileWrapper [] fileWrappers = new FileWrapper[files.length];
+        for (int i=0; i<files.length; i++) {  
+            fileWrappers[i] = new FileWrapper(files[i], isCaseSensitive);  
+        }  
+          
+        Arrays.sort(fileWrappers);  
+          
+        File []sortedFiles = new File[files.length];  
+        for (int i=0; i<files.length; i++) {  
+            sortedFiles[i] = fileWrappers[i].getFile();  
+        }  
+          
+        return sortedFiles;  
+	} 
 
+	
 	public static String readFileByLines(String fileName) {
 		File file = new File(fileName);
 
@@ -39,14 +62,16 @@ public class FileUtil {
 		return sb.toString();
 	}
 
+	
 	public static int countFileLines(File fileName) {
 
 		String result = readFileByLines(fileName);
 
-		return countFileLines(result);
+		return countLines(result);
 	}
 
-	public static int countFileLines(String content) {
+	
+	public static int countLines(String content) {
 
 		String[] array = content.split("\n");
 

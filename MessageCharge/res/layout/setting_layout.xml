@@ -69,6 +69,7 @@
         <!-- 信息前缀 -->
         <EditText
             android:id="@+id/etPrefix"
+            android:inputType="text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
@@ -95,7 +96,7 @@
 		 <!-- 发送间隔 -->
          <EditText
             android:id="@+id/etDelay"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
