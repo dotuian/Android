@@ -18,6 +18,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ian.utils.FileUtil;
 
@@ -29,17 +31,21 @@ public class SendMessageActivity extends Activity {
 	private static final String sdcardDir = Environment.getExternalStorageDirectory().getPath();
 	
 	// 
+	private TextView tvTitle;
 	private EditText etTelNo;
 	private EditText etMessage; 
 	private Button btnSend ;
 	private ImageButton btnSelect ;
 	private ImageButton btnSetting;
+	private int messageCount = 0 ;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.send_message_layout);
-		
+
+		// 标题
+		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		// 发送号码
 		etTelNo = (EditText) findViewById(R.id.etTelNo);
 		// 发送信息
@@ -81,6 +87,10 @@ public class SendMessageActivity extends Activity {
 		public void onClick(View v) {
 			
 			Log.i(TAG, "发送短信OnClickListener");
+			
+			if(!validateForSendMessage()){
+				return ;
+			}
 			
 			SharedPreferences share = SendMessageActivity.this.getSharedPreferences("perference", MODE_PRIVATE);
 			
@@ -135,10 +145,32 @@ public class SendMessageActivity extends Activity {
 							}
 						}
 					}
+					
+					if (messageCount-i-1 <= 0){
+						tvTitle.setText("短信发送");
+					} else {
+						tvTitle.setText("短信发送(" + (messageCount-i-1) + ")");
+					}
 				}
 			}
 		}
 	};
+	
+	private boolean validateForSendMessage(){
+		
+		if(etTelNo.getText() == null || "".equals(etTelNo.getText()) ){
+			Toast.makeText(SendMessageActivity.this, "请输入发送号码！",Toast.LENGTH_LONG).show();
+			return false;
+		}
+		
+		if(etMessage.getText() == null || "".equals(etMessage.getText()) ){
+			Toast.makeText(SendMessageActivity.this, "请输入信息内容！",Toast.LENGTH_LONG).show();
+			return false;
+		}
+		
+		return true;
+	}
+	
 	
 	/**
 	 * 跳转到设置画面
@@ -166,6 +198,8 @@ public class SendMessageActivity extends Activity {
 				
 				etMessage.setText(FileUtil.readFileByLines(file));
 				
+				messageCount = FileUtil.countFileLines(file);
+				tvTitle.setText("短信发送(" + messageCount + ")");
 				//Toast.makeText(SendMessageActivity.this, "文件读取成功！",Toast.LENGTH_LONG).show();
 			}
 		}

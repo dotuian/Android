@@ -6,7 +6,7 @@
     <string name="title_activity_send_message">SendMessage</string>
 
     <!--  短信发送界面 -->
-    <string name="sendpage">短信发送界面</string>
+    <string name="sendpage">短信发送</string>
     
 	<string name="telNo">手机号码：</string>
 	<string name="content">请输入信息内容：</string>

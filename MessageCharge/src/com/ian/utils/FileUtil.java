@@ -6,15 +6,15 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FileUtil {
-	
+
 	public static String readFileByLines(String fileName) {
 		File file = new File(fileName);
-		
+
 		return readFileByLines(file);
 	}
-	
+
 	public static String readFileByLines(File file) {
-		
+
 		BufferedReader reader = null;
 		StringBuffer sb = new StringBuffer();
 
@@ -37,6 +37,24 @@ public class FileUtil {
 			}
 		}
 		return sb.toString();
+	}
+
+	public static int countFileLines(File fileName) {
+
+		String result = readFileByLines(fileName);
+
+		return countFileLines(result);
+	}
+
+	public static int countFileLines(String content) {
+
+		String[] array = content.split("\n");
+
+		if (array != null) {
+			return array.length;
+		} else {
+			return 0;
+		}
 	}
 
 }
