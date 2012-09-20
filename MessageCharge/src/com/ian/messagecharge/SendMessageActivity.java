@@ -167,6 +167,9 @@ public class SendMessageActivity extends Activity {
 					}
 				}
 			}
+			
+			// 发送完毕
+			etMessage.setText(null);
 		}
 	};
 	
