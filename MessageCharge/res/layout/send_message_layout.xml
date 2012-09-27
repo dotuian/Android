@@ -12,16 +12,16 @@
 		android:orientation="horizontal"
 		android:background="@color/top_bg">
 		<!-- 设置 -->
-		<!-- 
 		<Button
-			android:id="@+id/btnSetting"
+			android:id="@+id/btnStop"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
 			android:layout_centerVertical="true"
 			android:layout_alignParentLeft="true"
-			android:layout_marginLeft="15dp"
-			android:text="@string/txtSetting" />
-		 -->
+			android:background="@drawable/button_bg"
+			android:text="@string/txtStop" />
+		 
 		<!-- 界面名称 -->		<TextView
 			android:id="@+id/tvTitle"
 			android:layout_width="wrap_content"

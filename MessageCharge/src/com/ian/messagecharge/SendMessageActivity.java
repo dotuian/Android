@@ -1,7 +1,6 @@
 package com.ian.messagecharge;
 
 import java.io.File;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.telephony.SmsManager;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -39,6 +37,7 @@ public class SendMessageActivity extends Activity {
 	private TextView tvTitle;
 	private EditText etTelNo;
 	private EditText etMessage; 
+	private Button btnStop ;
 	private Button btnSend ;
 	private ImageButton btnSelect ;
 	private ImageButton btnSetting;
@@ -59,13 +58,15 @@ public class SendMessageActivity extends Activity {
 		
 		etMessage.setOnKeyListener(onkeylistener);
 		
-		
-		// 选择按钮
-		btnSelect = (ImageButton) this.findViewById(R.id.btnSelect);
-		btnSelect.setOnClickListener(selectListener);
+		// 停止按钮
+		btnStop = (Button) this.findViewById(R.id.btnStop);
+		btnStop.setOnClickListener(stopListener);
 		// 发送按钮
 		btnSend = (Button) this.findViewById(R.id.btnSend);
 		btnSend.setOnClickListener(sendListener);
+		// 选择按钮
+		btnSelect = (ImageButton) this.findViewById(R.id.btnSelect);
+		btnSelect.setOnClickListener(selectListener);
 		// 设置按钮
 		btnSetting = (ImageButton) this.findViewById(R.id.btnSetting);
 		btnSetting.setOnClickListener(settingListener);
@@ -82,6 +83,19 @@ public class SendMessageActivity extends Activity {
 		}
 	};
 	
+	
+	/**
+	 * 停止按钮
+	 */
+	private OnClickListener stopListener = new View.OnClickListener() {
+		public void onClick(View v) {
+			Log.i(TAG, "停止OnClickListener");
+			
+			Intent intent = new Intent();
+			intent.setClass(SendMessageActivity.this, SendMessageService.class);
+			stopService(intent);
+		}
+	};
 	
 	/**
 	 * 发送短信
@@ -111,65 +125,80 @@ public class SendMessageActivity extends Activity {
 			// 发送内容
 			String message = etMessage.getText().toString();
 
-			messageCount = FileUtil.countLines(message);
-			tvTitle.setText(getString(R.string.sendpage) +  "(" + messageCount + ")");
-			
-			// 移动运营商允许每次发送的字节数据有限，我们可以使用Android给我们提供 的短信工具。
-			if (message != null) {
-				SmsManager sms = SmsManager.getDefault();
+			// 通过Bundle对象存储需要传递的数据
+			Bundle bundle = new Bundle();
+			bundle.putString("TELNO", telNo);
+			bundle.putString("CENTERTELNO", centerTelNo);
+			bundle.putString("PREFIX", prefix);
+			bundle.putString("DELAY", delay);
+			bundle.putString("MESSAGE", message);
 
-				String [] contents = message.split("\n"); 
-				// 以行为单位发送
-				for (int i = 0; i < contents.length; i++) {
-					// 如果短信没有超过限制长度，则返回一个长度的List。
-					
-					List<String> texts = sms.divideMessage(contents[i]);
-
-					for (String text : texts) {
-						// sms.sendTextMessage(destinationAddress, scAddress,
-						// text, sentIntent, deliveryIntent)：
-						// 1. destinationAddress:接收方的手机号码。
-						// 2. scAddress:短信中心号码，测试时可以不填写。
-						// 3. text:信息内容。
-						// 4. sentIntent:发送是否成功的回执，以后会详细介绍。
-						// 5. deliveryIntent:接收是否成功的回执。
-						
-						if (prefix != null && !"".equals(prefix)){
-							
-							sms.sendTextMessage(telNo, centerTelNo, prefix+text, null, null);
-							Log.i(TAG, (i+1) + " 发送短信 电话号码：" + telNo + " 短信中心号码：" + centerTelNo + " 前缀：" + prefix + " 短信内容：" + (prefix+text));
-							
-						} else {
-							sms.sendTextMessage(telNo, centerTelNo, text, null, null);
-							Log.i(TAG, (i+1) + " 发送短信 电话号码：" + telNo + " 短信中心号码：" + centerTelNo + " 短信内容：" + text);
-						}
-						
-						// 间隔发送
-						if (delay != null && !"".equals(delay)){
-							try {
-								Thread.sleep((long)(Float.valueOf(delay) * 1000));
-							} catch (NumberFormatException e) {
-								e.printStackTrace();
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-						}
-					}
-					
-					
-					Log.i(TAG, "messageCount = " + messageCount);
-					
-					messageCount--;
-					if (messageCount == 0){
-						tvTitle.setText("短信发送");
-					} else {
-						tvTitle.setText("短信发送(" + messageCount + ")");
-					}
-				}
-			}
+			Intent intent = new Intent();
+			intent.putExtras(bundle);
+			intent.setClass(SendMessageActivity.this, SendMessageService.class);
 			
-			// 发送完毕
-			etMessage.setText(null);
+			Toast.makeText(SendMessageActivity.this, "My Service Started", Toast.LENGTH_LONG).show();
+			
+			startService(intent);
+			
+//			messageCount = FileUtil.countLines(message);
+//			tvTitle.setText(getString(R.string.sendpage) +  "(" + messageCount + ")");
+//			// 移动运营商允许每次发送的字节数据有限，我们可以使用Android给我们提供 的短信工具。
+//			if (message != null) {
+//				SmsManager sms = SmsManager.getDefault();
+//
+//				String [] contents = message.split("\n"); 
+//				// 以行为单位发送
+//				for (int i = 0; i < contents.length; i++) {
+//					// 如果短信没有超过限制长度，则返回一个长度的List。
+//					
+//					List<String> texts = sms.divideMessage(contents[i]);
+//
+//					for (String text : texts) {
+//						// sms.sendTextMessage(destinationAddress, scAddress,
+//						// text, sentIntent, deliveryIntent)：
+//						// 1. destinationAddress:接收方的手机号码。
+//						// 2. scAddress:短信中心号码，测试时可以不填写。
+//						// 3. text:信息内容。
+//						// 4. sentIntent:发送是否成功的回执，以后会详细介绍。
+//						// 5. deliveryIntent:接收是否成功的回执。
+//						
+//						if (prefix != null && !"".equals(prefix)){
+//							
+//							sms.sendTextMessage(telNo, centerTelNo, prefix+text, null, null);
+//							Log.i(TAG, (i+1) + " 发送短信 电话号码：" + telNo + " 短信中心号码：" + centerTelNo + " 前缀：" + prefix + " 短信内容：" + (prefix+text));
+//							
+//						} else {
+//							sms.sendTextMessage(telNo, centerTelNo, text, null, null);
+//							Log.i(TAG, (i+1) + " 发送短信 电话号码：" + telNo + " 短信中心号码：" + centerTelNo + " 短信内容：" + text);
+//						}
+//						
+//						// 间隔发送
+//						if (delay != null && !"".equals(delay)){
+//							try {
+//								Thread.sleep((long)(Float.valueOf(delay) * 1000));
+//							} catch (NumberFormatException e) {
+//								e.printStackTrace();
+//							} catch (InterruptedException e) {
+//								e.printStackTrace();
+//							}
+//						}
+//					}
+//					
+//					
+//					Log.i(TAG, "messageCount = " + messageCount);
+//					
+//					messageCount--;
+//					if (messageCount == 0){
+//						tvTitle.setText("短信发送");
+//					} else {
+//						tvTitle.setText("短信发送(" + messageCount + ")");
+//					}
+//				}
+//			}
+//			
+//			// 发送完毕
+//			etMessage.setText(null);
 		}
 	};
 	

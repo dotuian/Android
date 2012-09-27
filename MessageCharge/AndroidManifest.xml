@@ -31,8 +31,10 @@
         </activity>
         
         <activity android:name=".SettingActivity"></activity>
-        
-    </application><uses-permission android:name="android.permission.SEND_SMS" ></uses-permission>
+        <service android:enabled="true" android:name=".SendMessageService" />
+    </application>
+    
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 往SDCard写入数据权限 -->
